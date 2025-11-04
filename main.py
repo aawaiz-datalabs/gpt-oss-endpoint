@@ -32,8 +32,15 @@ async def generate_text(request: PromptRequest):
     )
 
     if response.status_code != 200:
+        print("❌ OpenRouter error:", response.text)
         raise HTTPException(status_code=response.status_code, detail=response.text)
 
     data = response.json()
     message = data["choices"][0]["message"]["content"]
-    return {"response": message}
+
+    try:
+        message_json = json.loads(message)
+    except json.JSONDecodeError:
+        message_json = message  # fallback if model didn't return valid JSON
+
+    return {"response": message_json}
