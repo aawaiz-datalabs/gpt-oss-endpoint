@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import os
 import requests
+import json
 from dotenv import load_dotenv
 
 load_dotenv()
