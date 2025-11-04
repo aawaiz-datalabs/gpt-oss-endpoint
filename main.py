@@ -24,6 +24,7 @@ async def generate_text(request: PromptRequest):
     payload = {
         "model": MODEL,
         "messages": [{"role": "user", "content": request.prompt}],
+        "response_format": {"type": "json_object"}
     }
 
     response = requests.post(
